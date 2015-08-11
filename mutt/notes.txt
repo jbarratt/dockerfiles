@@ -1,0 +1,10 @@
+This is a good script but I am using a faster way using Pandoc. I simply bound a macro command in order to have the file converted to html before sending.
+
+macro compose \e5 “F pandoc -s -f markdown -t html \ny^T^Utext/html; charset=utf-8\n”
+
+alternative https://dgl.cx/2009/03/html-mail-with-mutt-using-markdown
+
+
+We should be able to grab the GAL (global address list)
+looks like this is a possible payload to request it:
+https://github.com/ork/mutt-office365/blob/master/request.xml

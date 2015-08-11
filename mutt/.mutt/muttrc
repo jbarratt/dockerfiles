@@ -1,0 +1,227 @@
+# A basic .muttrc for use with O365
+
+# User config
+set my_realname="OFFICE_REALNAME"
+set my_username="OFFICE_USERNAME"
+set my_domain="godaddy.com"
+set my_password="OFFICE_PASSWORD"
+set my_lang="en_US"
+
+# IMAP folders
+set my_drafts="Drafts"
+set my_drafts_noquote="Drafts"
+set my_sent="Sent<quote-char><space>Items"
+set my_sent_noquote="Sent Items"
+set my_trash="Deleted<quote-char><space>Items"
+set my_trash_noquote="Deleted Items"
+
+# # Quotation and date formats
+set attribution="The %d, %n wrote:"
+set date_format="!%m/%d/%Y %H:%M"
+#
+# Hours and dates
+set locale="en_US.UTF-8"
+set charset="utf-8"
+set assumed_charset="utf-8"
+set send_charset="utf-8:us-ascii"
+
+## Server config
+
+# IMAP config
+set imap_user="$my_username@$my_domain"
+set imap_pass=$my_password
+
+set folder="imaps://outlook.office365.com/"
+set spoolfile= +INBOX
+set postponed= +$my_drafts_noquote
+set record = +$my_sent_noquote
+set trash = +$my_trash_noquote
+mailboxes
+
+set imap_check_subscribed="yes"
+set imap_list_subscribed="yes"
+set timeout=15
+set mail_check=90
+set imap_keepalive=180
+set imap_idle
+unset mark_old
+set ssl_use_sslv3=yes
+
+# SMTP config
+set realname = $my_realname
+# set from = "$my_username@$my_domain"
+set from = "OFFICE_EMAIL"
+set smtp_pass = $my_password
+set hostname = $my_domain
+set smtp_url = "smtp://$my_username@$my_domain@outlook.office365.com:587/"
+set ssl_force_tls = yes
+set smtp_authenticators = "login"
+
+## More settings
+
+# File storage settings
+
+# set signature="~/.mutt/signature"
+# set message_cachedir="~/.mutt/message_cache"
+# set header_cache="~/.mutt/header_cache"
+# set tmpdir="~/.mutt/tmp"
+
+# Text view first
+set pager_stop="yes"
+set smart_wrap="yes"
+alternative_order text/plain
+auto_view text/html
+set reverse_name=yes
+set reverse_realname=yes
+
+# Text editor
+#set editor='vim + -c "set textwidth=72" -c "set wrap" -c "set nocp" -c "?^$"'
+set editor="vim"
+
+# Adress book handling
+set sort_alias=alias
+set reverse_alias=yes
+# set alias_file="~/.mutt/aliases"
+# source "~/.mutt/gal"
+# source "~/.mutt/aliases"
+# source "~/.mutt/mailing_lists"
+
+# Thread ordering
+# set sort = 'threads'
+set sort_browser="reverse-date"
+# set sort_aux="last-date-received"
+unset collapse_unread
+set index_format=" %?M?   ↳&%4C?   %Z      %D     %-15.15n    %s"
+
+## Key bindings
+
+# Mailboxes
+bind    index   G  imap-fetch-mail
+macro   index   gi "<change-folder>=INBOX<enter>"       "Go to Inbox"
+macro   index   gs "<change-folder>=$my_sent<enter>"    "Go to Sent"
+macro   index   gd "<change-folder>=$my_drafts<enter>"  "Go to Drafts"
+macro   index   gt "<change-folder>=$my_trash<enter>"   "Go to Trash"
+
+# Index
+bind    index   <up>        previous-entry
+bind    index   <down>      next-entry
+bind    index   <delete>    delete-message
+bind    index   n           next-entry
+bind    index   p           previous-entry
+macro   index   Q           ":set quit=yes\nq" "Quit mutt without asking"
+bind    index   C           noop
+bind    index   -           collapse-thread
+bind    index   _           collapse-all
+
+# Pager
+bind    pager   <up>        previous-line
+bind    pager   <down>      next-line
+bind    pager   <left>      previous-entry
+bind    pager   <right>     next-entry
+bind    pager   <delete>    delete-message
+bind    pager   k           previous-line
+bind    pager   j           next-line
+bind    pager   n           next-entry
+bind    pager   p           previous-entry
+bind    pager   w           previous-page
+
+# Colors
+# color   normal      white default
+# color   attachment  brightyellow default
+# color   hdrdefault  cyan default
+# color   indicator   black cyan
+# color   markers     brightred default
+# color   quoted      green default
+# color   signature   cyan default
+# color   status      brightgreen blue
+# color   tilde       blue default
+# color   tree        red default
+# color   header      brightgreen default ^From:
+# color   header      brightcyan default ^To:
+# color   header      brightcyan default ^Reply-To:
+# color   header      brightcyan default ^Cc:
+# color   header      brightblue default ^Subject:
+# color   body        brightred default [\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+
+# color   body        brightblue default (https?|ftp)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+
+
+# For better looks
+#set markers=no # don't put '+' at the beginning of wrapped lines
+#set pager_index_lines= 5 # how large is the index window?
+
+
+# Change the following line to a different editor you prefer (and update the Dockerfile accordingly, of course).
+set editor = "vim"
+
+ignore *
+unignore date subject user-agent posted-to content-type
+unignore to cc bcc reply-to from
+
+set edit_headers = yes
+my_hdr X-Hack-The-Planet: Yes
+my_hdr X-You-Win-A-Prize: Yes
+
+# TODO figure out how to use the sidebar more effectively :)
+set sidebar_visible = no
+
+# Tianon keybindings and settings, because he's special.
+bind pager <up> previous-line
+bind pager <down> next-line
+set resolve = no # uh, don't randomly take me to other messages when I do things
+
+# Basic config, you can leave this as is
+# set folder = "imaps://imap.gmail.com:993"
+# set spoolfile = "+INBOX"
+# set imap_check_subscribed
+# set hostname = gmail.com
+# set mail_check = 60
+# set timeout = 300
+# set imap_keepalive = 300
+# set postponed = "+[Gmail]/Drafts"
+# set record = "" # gmail automatically handles saving sent emails
+
+set header_cache=~/.mutt/cache/headers
+set message_cachedir=~/.mutt/cache/bodies
+set certificate_file=~/.mutt/certificates
+
+set move = no
+set include
+set sort = 'reverse-threads'
+set sort_aux = 'last-date-received'
+set auto_tag = yes
+
+# sane gpg settings to be a good encryption
+# social citizen of the world
+# set pgp_replyencrypt       # auto encrypt replies to encrypted mail
+# set pgp_replysign          # auto sign replies to signed mail
+# set pgp_replysignencrypted # auto sign & encrypt to signed & encrypted mail
+# set pgp_show_unusable=no   # show which keys are no good anymore
+
+ignore "Authentication-Results:"
+ignore "DomainKey-Signature:"
+ignore "DKIM-Signature:"
+hdr_order Date From To Cc
+alternative_order text/plain text/html *
+auto_view text/html
+
+bind editor <Tab> complete-query
+bind editor ^T complete
+bind editor <space> noop
+
+set mailcap_path = ~/.mutt/mailcap
+
+# Gmail-style keyboard shortcuts
+# macro index,pager Gi "<change-folder>=INBOX<enter>" "Go to Inbox"
+# macro index,pager Ga "<change-folder>=[Gmail]/All Mail<enter>" "Go to All Mail"
+# macro index,pager Gd "<change-folder>=[Gmail]/Drafts<enter>" "Go to Drafts"
+# macro index,pager Gs "<change-folder>=[Gmail]/Sent Mail<enter>" "Go to Sent Mail"
+
+# macro index,pager a "<enter-command>unset resolve<enter><enter-command>unset trash<enter><clear-flag>N<# enter-command>set resolve<enter><delete-message><enter>"
+# macro index,pager d ";s+[Gmail]/Trash<enter><enter>" "Trash"
+# macro index,pager u ";s+INBOX<enter><enter>" "Move to Inbox"
+# macro index,pager !  <save-message>=[Gmail]/Spam<enter><enter> "Report spam"
+# macro index,pager +  <save-message>=[Gmail]/Important<enter><enter> "Mark as Important"
+# macro index,pager *  <save-message>=[Gmail]/Starred<enter><enter> "Star Message"
+
+# colors
+source ~/.mutt/mutt-colors-solarized-dark-16.muttrc
+source ~/.mutt/mutt-patch-highlighting.muttrc
