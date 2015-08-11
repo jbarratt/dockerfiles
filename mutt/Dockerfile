@@ -45,7 +45,6 @@ RUN mkdir -p $HOME/.mutt/cache/headers $HOME/.mutt/cache/bodies \
 
 ENV LANG C.UTF-8
 
-COPY    .vim $HOME/.vim
 COPY    .vimrc $HOME/.vimrc
 COPY	.mutt			$HOME/.mutt
 
